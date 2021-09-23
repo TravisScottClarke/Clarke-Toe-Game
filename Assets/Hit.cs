@@ -6,6 +6,7 @@ public class Hit : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject Clark;
+    public GameObject Duckk;
     public bool homing=false;
     void Start()
     {
@@ -28,10 +29,14 @@ public class Hit : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Boss")
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            Clark.GetComponent<sc>().Health -= 5;
-            Destroy(gameObject);
+            if (collision.collider.gameObject == Clark)
+            {
+                collision.collider.gameObject.GetComponent<sc>().Health -= 5;
+                Destroy(gameObject);
+            }
+
         }
     }
 }

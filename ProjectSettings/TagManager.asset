@@ -8,6 +8,7 @@ TagManager:
   - Boss
   - New tag
   - PLRE
+  - Shield
   layers:
   - Default
   - TransparentFX

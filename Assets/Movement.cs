@@ -19,6 +19,7 @@ public class Movement : MonoBehaviour
     public GameObject cam;
     public bool ishoming = false;
     public GameObject shieldobj;
+    public GameObject innershieldobj;
     private int w;
     void Start()
     { 
@@ -64,6 +65,9 @@ public class Movement : MonoBehaviour
         {
             GameObject projectile = (GameObject)Instantiate(shieldobj, gameObject.transform.position, gameObject.transform.rotation);
             projectile.GetComponent<Forcefieldscript>().active = true;
+            GameObject projectile2 = (GameObject)Instantiate(innershieldobj, gameObject.transform.position, gameObject.transform.rotation);
+            projectile2.GetComponent<Forcefieldscript>().active = true;
+            Destroy(projectile2, 3.0f);
             Destroy(projectile, 3.0f);
 
         }

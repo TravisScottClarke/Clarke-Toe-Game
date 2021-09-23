@@ -28,7 +28,7 @@ public class sc : MonoBehaviour
     public int phase = 1;
     bool towersmove = false;
     string stg;
-    int cont;
+    public int cont;
     public GameObject doggo;
 
     // Start is called before the first frame update
@@ -223,7 +223,15 @@ public class sc : MonoBehaviour
         {
             if(cont<=100)
             {
-                Vector2 target = Tower1.transform.position;
+                Vector2 target = Tower3.transform.position;
+                Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
+                Vector2 direction = target - myPos;
+                direction.Normalize();
+                this.GetComponent<Rigidbody2D>().velocity = direction * 100;
+            }
+            else if (cont <= 200)
+            {
+                Vector2 target = Tower6.transform.position;
                 Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
                 Vector2 direction = target - myPos;
                 direction.Normalize();
@@ -231,7 +239,15 @@ public class sc : MonoBehaviour
             }
             else if (cont <= 300)
             {
-                Vector2 target = Tower2.transform.position;
+                Vector2 target = Tower1.transform.position;
+                Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
+                Vector2 direction = target - myPos;
+                direction.Normalize();
+                this.GetComponent<Rigidbody2D>().velocity = direction * 100;
+            }
+            else if (cont <= 400)
+            {
+                Vector2 target = Tower7.transform.position;
                 Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
                 Vector2 direction = target - myPos;
                 direction.Normalize();
@@ -239,7 +255,15 @@ public class sc : MonoBehaviour
             }
             else if (cont <= 500)
             {
-                Vector2 target = Tower3.transform.position;
+                Vector2 target = Tower4.transform.position;
+                Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
+                Vector2 direction = target - myPos;
+                direction.Normalize();
+                this.GetComponent<Rigidbody2D>().velocity = direction * 100;
+            }
+            else if (cont <= 600)
+            {
+                Vector2 target = Tower8.transform.position;
                 Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
                 Vector2 direction = target - myPos;
                 direction.Normalize();
@@ -247,7 +271,7 @@ public class sc : MonoBehaviour
             }
             else if (cont <= 700)
             {
-                Vector2 target = Tower4.transform.position;
+                Vector2 target = Tower2.transform.position;
                 Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
                 Vector2 direction = target - myPos;
                 direction.Normalize();
@@ -263,33 +287,13 @@ public class sc : MonoBehaviour
             }
             else if (cont <= 900)
             {
-                Vector2 target = Tower6.transform.position;
+                Vector2 target = new Vector2(-601.16f, -572.57f);
                 Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
                 Vector2 direction = target - myPos;
                 direction.Normalize();
                 this.GetComponent<Rigidbody2D>().velocity = direction * 100;
             }
             else if (cont <= 1000)
-            {
-                Vector2 target = Tower7.transform.position;
-                Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
-                Vector2 direction = target - myPos;
-                direction.Normalize();
-                this.GetComponent<Rigidbody2D>().velocity = direction * 100;
-            }
-            else if (cont <= 1200)
-            {
-                Vector2 target = Tower8.transform.position;
-                Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
-                Vector2 direction = target - myPos;
-                direction.Normalize();
-                this.GetComponent<Rigidbody2D>().velocity = direction * 100;
-            }
-            else if (cont <= 1400)
-            {
-                gameObject.transform.position = new Vector2(-601.16f, -572.57f);
-            }
-            else if (cont <= 1600)
             {
                 cont = 0;
             }

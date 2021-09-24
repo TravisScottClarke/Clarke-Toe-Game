@@ -29,14 +29,6 @@ public class Hit : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            if (collision.collider.gameObject == Clark)
-            {
-                collision.collider.gameObject.GetComponent<sc>().Health -= 5;
-                Destroy(gameObject);
-            }
-
-        }
+       
     }
 }

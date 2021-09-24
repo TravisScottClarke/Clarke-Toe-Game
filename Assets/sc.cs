@@ -627,4 +627,13 @@ public class sc : MonoBehaviour
         doge1.GetComponent<fOLLWpLAYER>().act = true;
 
     }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("PProj"))
+        {
+            Health -= 5;
+            Destroy(collision.collider.gameObject);
+        }
+    }
 }

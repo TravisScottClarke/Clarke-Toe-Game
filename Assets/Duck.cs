@@ -9,14 +9,9 @@ public class Duck : MonoBehaviour
     public GameObject plr;
     public int duk;
     public GameObject egg1;
-    public GameObject egg2;
-    public GameObject egg3;
-    public GameObject egg4;
-    public GameObject egg5;
-    public GameObject egg6;
     public int cont = 0;
     public int maxhealth;
-    public int health;
+    public int Health;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +21,7 @@ public class Duck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health<= 0)
+        if(Health<= 0)
         {
             Destroy(gameObject);
         }
@@ -87,5 +82,16 @@ public class Duck : MonoBehaviour
         GameObject projectile = (GameObject)Instantiate(proje, myPos, rotation);
         projectile.GetComponent<Rigidbody2D>().velocity = direction * speed;
         Destroy(projectile, durration);
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (activate == true)
+        {
+            if (collision.collider.gameObject.layer == LayerMask.NameToLayer("PProj"))
+            {
+                Health -= 5;
+                Destroy(collision.collider.gameObject);
+            }
+        }
     }
 }

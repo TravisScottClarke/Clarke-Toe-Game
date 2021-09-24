@@ -20,7 +20,6 @@ public class Movement : MonoBehaviour
     public bool ishoming = false;
     public GameObject shieldobj;
     public GameObject innershieldobj;
-    private int w;
     void Start()
     { 
         sr = GetComponent<SpriteRenderer>();
@@ -40,8 +39,7 @@ public class Movement : MonoBehaviour
         }
         Move();
         Move2();
-        if (w >= 500)
-        {
+
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
@@ -56,11 +54,8 @@ public class Movement : MonoBehaviour
                 Destroy(projectile, 2.0f);
 
             }
-        }
-        if (w < 500)
-        {
-            w += 1;
-        }
+
+ 
         if (Input.GetMouseButtonDown(1))
         {
             GameObject projectile = (GameObject)Instantiate(shieldobj, gameObject.transform.position, gameObject.transform.rotation);

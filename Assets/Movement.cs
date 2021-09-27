@@ -84,5 +84,21 @@ public class Movement : MonoBehaviour
 
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Healables"))
+        {
+            if (Health <= MaxHealth - 50)
+            {
+                Health += 50;
+            }
+            else if (Health > MaxHealth-50)
+            {
+                Health = MaxHealth;
+            }
+            Destroy(collision.collider.gameObject);
+        }
+    }
 
 }

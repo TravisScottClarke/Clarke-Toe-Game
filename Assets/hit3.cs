@@ -5,7 +5,7 @@ using UnityEngine;
 public class hit3 : MonoBehaviour
 {
     public GameObject Player;
-
+    public int dmg;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,7 @@ public class hit3 : MonoBehaviour
     {
         if (collision.gameObject.tag == "PLRE")
         {
-            Player.GetComponent<Movement>().Health -= 50;
+            Player.GetComponent<Movement>().Health -= dmg;
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag == "Shield")

@@ -630,7 +630,7 @@ public class sc : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("PProj"))
+        if(collision.collider.gameObject.layer == LayerMask.NameToLayer("PProj"))
         {
             Health -= 5;
             Destroy(collision.collider.gameObject);

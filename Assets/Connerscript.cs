@@ -22,6 +22,7 @@ public class Connerscript : MonoBehaviour
     public float interpolationPeriod = 0.2f;
     public int phase;
     public bool invuln = false;
+    private float rotrng = -360.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +35,7 @@ public class Connerscript : MonoBehaviour
         if (phase == 1)
         {
             time += Time.deltaTime;
-            if(Health<=280)
+            if (Health <= 280)
             {
                 phase = 2;
                 invuln = true;
@@ -48,8 +49,9 @@ public class Connerscript : MonoBehaviour
                 fire_1(plr.transform.position, 70);
 
             }
+
         }
-        if(phase == 2)
+        if (phase == 2)
         {
 
         }
@@ -60,10 +62,10 @@ public class Connerscript : MonoBehaviour
             {
                 time = 0.0f;
                 fire_1(plr.transform.position, 70);
-                Vector3 rnd = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f),0);
-                fire_1(plr.transform.position+rnd, 70);
+                Vector3 rnd = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), 0);
+                fire_1(plr.transform.position + rnd, 70);
                 rnd = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f), 0);
-                fire_1(plr.transform.position+rnd, 70);
+                fire_1(plr.transform.position + rnd, 70);
 
             }
             if (Health <= 250)
@@ -134,11 +136,57 @@ public class Connerscript : MonoBehaviour
             {
                 phase = 8;
                 invuln = true;
-                duck3.GetComponent<DUckFightingScript>().activate = true;
+                duck4.GetComponent<DUckFightingScript>().activate = true;
                 gameObject.GetComponent<SpriteRenderer>().sprite = sp2;
 
             }
         }
+
+        if (phase == 9)
+        {
+            time += Time.deltaTime;
+            if (time >= interpolationPeriod)
+            {
+                time = 0.0f;
+                fire_1(plr.transform.position, 70);
+                fire_rnd(20.0f);
+                fire_rnd(20.0f);
+                fire_rnd(20.0f);
+                fire_rnd(20.0f);
+                fire_rnd(20.0f);
+                fire_rnd(20.0f);
+                fire_rnd(20.0f);
+                fire_rnd(100.0f);
+                fire_rnd(100.0f);
+                fire_rnd(100.0f);
+                fire_rnd(100.0f);
+                fire_rnd(100.0f);
+                fire_rnd(100.0f);
+                fire_rnd(100.0f);
+                fire_rnd(100.0f);
+                fire_rnd(100.0f);
+
+
+            }
+            if (Health <= 100)
+            {
+                phase = 10;
+                invuln = true;
+                duck5.GetComponent<DUckFightingScript>().activate = true;
+                gameObject.GetComponent<SpriteRenderer>().sprite = sp2;
+
+            }
+        }
+        if(phase == 10)
+        {
+
+        }
+        if (phase == 11)
+        {
+            rotrng += 1;
+            fire_tent(new Vector3(rotrng, rotrng));
+        }
+
     }
     void fire_1(Vector2 pos, int speed)
     {
@@ -168,7 +216,18 @@ public class Connerscript : MonoBehaviour
 
 
     }
+    void fire_rnd(float range)
+    {
+        Vector3 rnd = new Vector3(Random.Range(-range, range), Random.Range(-range, range), 0);
+        fire_1(plr.transform.position + rnd, 70);
 
+    }
+    void fire_tent(Vector3 rot)
+    {
+
+        fire_1(plr.transform.position + rot, 70);
+
+    }
     void OnCollisionEnter2D(Collision2D collision)
     {
 

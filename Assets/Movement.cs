@@ -20,13 +20,15 @@ public class Movement : MonoBehaviour
     public bool ishoming = false;
     public GameObject shieldobj;
     public GameObject innershieldobj;
+    public bool shieldactive;
+    private float time = 0.0f;
+    public float interpolationPeriod = 5.0f;
     void Start()
     { 
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
 
     void Update()
     {
@@ -58,13 +60,26 @@ public class Movement : MonoBehaviour
  
         if (Input.GetMouseButtonDown(1))
         {
-            GameObject projectile = (GameObject)Instantiate(shieldobj, gameObject.transform.position, gameObject.transform.rotation);
-            projectile.GetComponent<Forcefieldscript>().active = true;
-            GameObject projectile2 = (GameObject)Instantiate(innershieldobj, gameObject.transform.position, gameObject.transform.rotation);
-            projectile2.GetComponent<Forcefieldscript>().active = true;
-            Destroy(projectile2, 3.0f);
-            Destroy(projectile, 3.0f);
+            if (shieldactive == false)
+            {
+                GameObject projectile = (GameObject)Instantiate(shieldobj, gameObject.transform.position, gameObject.transform.rotation);
+                projectile.GetComponent<Forcefieldscript>().active = true;
+                GameObject projectile2 = (GameObject)Instantiate(innershieldobj, gameObject.transform.position, gameObject.transform.rotation);
+                projectile2.GetComponent<Forcefieldscript>().active = true;
+                Destroy(projectile2, 3.0f);
+                Destroy(projectile, 3.0f);
+                shieldactive = true;
+            }
 
+        }
+        if(shieldactive == true)
+        {
+            time += Time.deltaTime;
+            if (time >= interpolationPeriod)
+            {
+                time = 0.0f;
+                shieldactive = false;
+            }
         }
 
     }

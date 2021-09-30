@@ -23,15 +23,22 @@ public class Connerscript : MonoBehaviour
     public int phase;
     public bool invuln = false;
     private float rotrng = -360.0f;
+    public Vector2 startpoint;
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Health<=0)
+		{
+            startpoint = gameObject.transform.position;
+            fire_tent2(10, 100060);
+            Destroy(gameObject);
+		}
         if (phase == 1)
         {
             time += Time.deltaTime;
@@ -183,8 +190,43 @@ public class Connerscript : MonoBehaviour
         }
         if (phase == 11)
         {
-            rotrng += 1;
-            fire_tent(new Vector3(rotrng, rotrng));
+            if(Health <=50)
+			{
+                phase = 12;
+                invuln = true;
+                duck6.GetComponent<DUckFightingScript>().activate = true;
+                gameObject.GetComponent<SpriteRenderer>().sprite = sp2;
+            }
+            time += Time.deltaTime;
+            if (time >= interpolationPeriod)
+            {
+                time = 0.0f;
+
+                startpoint = gameObject.transform.position;
+                fire_tent(30, Random.Range(1,20));
+            }
+        }
+        if (phase == 12)
+        {
+            time += Time.deltaTime;
+            if (time >= interpolationPeriod)
+            {
+                time = 0.0f;
+
+                startpoint = gameObject.transform.position;
+                fire_tent(30, Random.Range(1, 10));
+            }
+        }
+        if (phase == 13)
+        {
+            time += Time.deltaTime;
+            if (time >= interpolationPeriod)
+            {
+                time = 0.0f;
+
+                startpoint = gameObject.transform.position;
+                fire_tent(30, Random.Range(1, 30));
+            }
         }
 
     }
@@ -222,12 +264,55 @@ public class Connerscript : MonoBehaviour
         fire_1(plr.transform.position + rnd, 70);
 
     }
-    void fire_tent(Vector3 rot)
+    void fire_tent(int speed, int numofprojs)
     {
-
-        fire_1(plr.transform.position + rot, 70);
-
+        int xcount = Random.Range(1, 6);
+        GameObject projrand = projbrown;
+        if (xcount == 1)
+        {
+            projrand = projwhite;
+        }
+        if (xcount == 2)
+        {
+            projrand = projpurple;
+        }
+        if (xcount == 3)
+        {
+            projrand = projbrown;
+        }
+        float angleStep = 360f / numofprojs;
+        float angle = 0f;
+        for (int i = 0; i <= numofprojs - 1; i++)
+        {
+            float projdirx = (startpoint.x) + Mathf.Sin((angle * Mathf.PI) / 180) * 36f;
+            float projdiry = (startpoint.y) + Mathf.Cos((angle * Mathf.PI) / 180) * 36f;
+            Vector2 projvector = new Vector2(projdirx, projdiry);
+            Vector2 projdirection = (projvector - startpoint).normalized * speed;
+            GameObject projectile = (GameObject)Instantiate(projrand, startpoint, gameObject.transform.rotation);
+            projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(projdirection.x, projdirection.y);
+            Destroy(projectile, 9.0f);
+            angle += angleStep;
+        }
     }
+        void fire_tent2(int speed, int numofprojs)
+        {
+          
+            float angleStep = 360f / numofprojs;
+            float angle = 0f;
+            for (int i = 0; i <= numofprojs - 1; i++)
+            {
+                float projdirx = (startpoint.x) + Mathf.Sin((angle * Mathf.PI) / 180) * 36f;
+                float projdiry = (startpoint.y) + Mathf.Cos((angle * Mathf.PI) / 180) * 36f;
+                Vector2 projvector = new Vector2(projdirx, projdiry);
+                Vector2 projdirection = (projvector - startpoint).normalized * speed;
+                GameObject projectile = (GameObject)Instantiate(projwhite, startpoint, gameObject.transform.rotation);
+                projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(projdirection.x, projdirection.y);
+                Destroy(projectile, 20.0f);
+                angle += angleStep;
+            }
+
+        }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
 

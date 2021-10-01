@@ -8,7 +8,6 @@ public class fOLLWpLAYER : MonoBehaviour
     public float speed;
     public bool act;
     private int delay = 0;
-    public GameObject plr;
     // Use this for initialization
     void Start()
     {
@@ -37,12 +36,15 @@ public class fOLLWpLAYER : MonoBehaviour
         }
 
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "PLRE")
+        if (collision.GetComponent<HealthScript>())
         {
-            plr.GetComponent<Movement>().Health -= 50;
-            Destroy(gameObject);
+            if (collision.GetComponent<HealthScript>().invun == false)
+            {
+                collision.GetComponent<HealthScript>().Health -= 50;
+            }
         }
+        Destroy(gameObject);
     }
 }

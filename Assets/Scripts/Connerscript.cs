@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Connerscript : MonoBehaviour
 {
-    public int MaxHealth;
-    public int Health;
     public GameObject projwhite;
     public GameObject projpurple;
     public GameObject projbrown;
@@ -22,27 +20,29 @@ public class Connerscript : MonoBehaviour
     public float interpolationPeriod = 0.2f;
     public int phase;
     public bool invuln = false;
-    private float rotrng = -360.0f;
     public Vector2 startpoint;
+    private float Health;
+    private float MaxHealth;
     // Start is called before the first frame update
     void Start()
     {
-       
+        MaxHealth = gameObject.GetComponent<HealthScript>().maxhealth;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Health<=0)
+        gameObject.GetComponent<HealthScript>().invun = invuln;
+        Health = gameObject.GetComponent<HealthScript>().Health;
+        if(Health <= 0)
 		{
-            startpoint = gameObject.transform.position;
-            fire_tent2(10, 100060);
             Destroy(gameObject);
 		}
         if (phase == 1)
         {
             time += Time.deltaTime;
-            if (Health <= 280)
+            if (Health <= MaxHealth-100)
             {
                 phase = 2;
                 invuln = true;
@@ -75,7 +75,7 @@ public class Connerscript : MonoBehaviour
                 fire_1(plr.transform.position + rnd, 70);
 
             }
-            if (Health <= 250)
+            if (Health <= MaxHealth - 200)
             {
                 phase = 4;
                 invuln = true;
@@ -104,7 +104,7 @@ public class Connerscript : MonoBehaviour
                 rnd = new Vector3(Random.Range(-20.0f, 20.0f), Random.Range(-20.0f, 20.0f), 0);
                 fire_1(plr.transform.position + rnd, 70);
             }
-            if (Health <= 200)
+            if (Health <= MaxHealth - 300)
             {
                 phase = 6;
                 invuln = true;
@@ -139,7 +139,7 @@ public class Connerscript : MonoBehaviour
                 rnd = new Vector3(Random.Range(-20.0f, 20.0f), Random.Range(-20.0f, 20.0f), 0);
                 fire_1(plr.transform.position + rnd, 70);
             }
-            if (Health <= 150)
+            if (Health <= MaxHealth - 400)
             {
                 phase = 8;
                 invuln = true;
@@ -175,7 +175,7 @@ public class Connerscript : MonoBehaviour
 
 
             }
-            if (Health <= 100)
+            if (Health <= MaxHealth - 500)
             {
                 phase = 10;
                 invuln = true;
@@ -225,7 +225,7 @@ public class Connerscript : MonoBehaviour
                 time = 0.0f;
 
                 startpoint = gameObject.transform.position;
-                fire_tent(30, Random.Range(1, 30));
+                fire_tent(30, Random.Range(1, 100));
             }
         }
 

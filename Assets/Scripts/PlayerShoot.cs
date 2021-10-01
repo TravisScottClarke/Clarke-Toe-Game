@@ -5,20 +5,18 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     public GameObject BulletPrefab;
+    public GameObject HoldingPoint;
+    public GameObject MagicSheild;
     public float fireDelta = 0.1F;
     private float nextFire = 0.5F;
     private float myTime = 0.0F;
     public int speed;
-    public GameObject shieldobj;
-    public GameObject innershieldobj;
-    public bool shieldactive;
-    private float time = 0.0f;
-    public float interpolationPeriod = 5.0f;
-    public Transform firePoint;
+    public bool canshoot = true;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -27,35 +25,31 @@ public class PlayerShoot : MonoBehaviour
         myTime = myTime + Time.deltaTime;
         if (Input.GetButton("Fire1") && myTime > nextFire)
         {
-            nextFire = myTime + fireDelta;
-            ShootFire();
-
-            nextFire = nextFire - myTime;
-            myTime = 0.0F;
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (shieldactive == false)
+            if (canshoot == true)
             {
-                GameObject projectile = (GameObject)Instantiate(shieldobj, gameObject.transform.position, gameObject.transform.rotation);
-                projectile.GetComponent<Forcefieldscript>().active = true;
-                GameObject projectile2 = (GameObject)Instantiate(innershieldobj, gameObject.transform.position, gameObject.transform.rotation);
-                projectile2.GetComponent<Forcefieldscript>().active = true;
-                Destroy(projectile2, 3.0f);
-                Destroy(projectile, 3.0f);
-                shieldactive = true;
+                nextFire = myTime + fireDelta;
+                ShootFire();
+                nextFire = nextFire - myTime;
+                myTime = 0.0F;
             }
+        }
+        if (Input.GetButton("Fire2"))
+        {
+            canshoot = false;
+            HoldingPoint.transform.position = gameObject.transform.position;
+            Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+            Vector3 difference = target - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+            float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+            HoldingPoint.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ-90f);
+
+            Vector2 startpoint = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+
 
         }
-        if (shieldactive == true)
+        if (!Input.GetButton("Fire2"))
         {
-            time += Time.deltaTime;
-            if (time >= interpolationPeriod)
-            {
-                time = 0.0f;
-                shieldactive = false;
-            }
+            canshoot = true;
+            HoldingPoint.transform.position = new Vector3(10000,10000,10000);
         }
 
     }
@@ -63,13 +57,13 @@ public class PlayerShoot : MonoBehaviour
 	{
         Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
         Vector2 mypos = new Vector2(gameObject.transform.position.x,gameObject.transform.position.y);
-        GameObject projectile = (GameObject)Instantiate(BulletPrefab, mypos, Quaternion.identity);
+        GameObject projectile = (GameObject)Instantiate(BulletPrefab, gameObject.transform.position, Quaternion.identity);
         Vector2 direction = target - mypos;
         direction.Normalize();
         projectile.GetComponent<Rigidbody2D>().velocity = direction * speed;
         Vector3 difference = target - new Vector2(gameObject.transform.position.x,gameObject.transform.position.y);
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        projectile.transform.rotation = Quaternion.Euler(0.0f,0.0f, rotationZ-90.0f);
+        projectile.transform.rotation = Quaternion.Euler(0.0f,0.0f, rotationZ);
         direction.Normalize();
         Destroy(projectile, 3.0f);
     }

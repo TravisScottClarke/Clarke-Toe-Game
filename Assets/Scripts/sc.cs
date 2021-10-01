@@ -5,8 +5,7 @@ using UnityEngine;
 public class sc : MonoBehaviour
 {
     public GameObject difselc;
-    public int Health;
-    public int Maxhealth;
+    private float Health;
     public GameObject txthealth;
     public GameObject proj;
     public GameObject proj2;
@@ -34,13 +33,13 @@ public class sc : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        gameObject.GetComponent<HealthScript>().invun = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        txthealth.GetComponent<UnityEngine.UI.Text>().text = "Clarke HP:" + Health + "/" + Maxhealth;
+        Health = gameObject.GetComponent<HealthScript>().Health;
         if(Health <=0)
         {
             Destroy(gameObject);
@@ -53,6 +52,7 @@ public class sc : MonoBehaviour
             direction.Normalize();
             if (w >= 500)
             {
+                gameObject.GetComponent<HealthScript>().invun = false;
                 Tower1.GetComponent<Fire>().ON = true;
                 Tower2.GetComponent<Fire>().ON = true;
                 Tower3.GetComponent<Fire>().ON = true;

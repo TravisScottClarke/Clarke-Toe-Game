@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public float speed = 20f;
+    public BoxCollider2D bc;
     public Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
-        rb.velocity = transform.right * speed;
     }
 
     // Update is called once per frame
@@ -19,6 +18,13 @@ public class BulletScript : MonoBehaviour
     }
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+        if (collision.GetComponent<HealthScript>())
+        {
+            if (collision.GetComponent<HealthScript>().invun == false)
+            {
+                collision.GetComponent<HealthScript>().Health -= 5;
+            }
+        }
         Destroy(gameObject);
 	}
 }

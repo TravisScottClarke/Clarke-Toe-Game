@@ -12,8 +12,7 @@ public class Movement : MonoBehaviour
     public float speed2 = 5.0f;
     public Sprite thick;
     public Sprite norm;
-    public int Health;
-    public int MaxHealth;
+    private float Health;
     public GameObject txthealth;
     public GameObject deathscene;
     public GameObject cam;
@@ -28,7 +27,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        txthealth.GetComponent<UnityEngine.UI.Text>().text = "Your HP:" + Health + "/" + MaxHealth;
+        Health = gameObject.GetComponent<HealthScript>().Health;
         if (Health <= 0)
         {
             deathscene.transform.position = cam.transform.position;
@@ -58,21 +57,5 @@ public class Movement : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Healables"))
-        {
-            if (Health <= MaxHealth - 50)
-            {
-                Health += 50;
-            }
-            else if (Health > MaxHealth-50)
-            {
-                Health = MaxHealth;
-            }
-            Destroy(collision.collider.gameObject);
-        }
-    }
-
+   
 }

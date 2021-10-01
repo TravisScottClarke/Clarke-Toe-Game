@@ -4,29 +4,26 @@ using UnityEngine;
 
 public class hit3 : MonoBehaviour
 {
-    public GameObject Player;
     public int dmg;
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0, 0, 10 * 1);
+
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "PLRE")
+        if (collision.GetComponent<HealthScript>())
         {
-            Player.GetComponent<Movement>().Health -= dmg;
-            Destroy(gameObject);
+            if (collision.GetComponent<HealthScript>().invun == false)
+            {
+                collision.GetComponent<HealthScript>().Health -= dmg;
+            }
         }
-        else if (collision.gameObject.tag == "Shield")
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

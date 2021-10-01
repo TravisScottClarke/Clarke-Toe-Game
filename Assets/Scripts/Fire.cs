@@ -9,6 +9,9 @@ public class Fire : MonoBehaviour
     public bool dest = false;
     private int relay = 0;
     public bool ON;
+    public float fireDelta = 0.1F;
+    private float nextFire = 0.5F;
+    private float myTime = 0.0F;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,19 +21,19 @@ public class Fire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (ON == true)
         {
-           
-                if (relay <= 5)
-                {
-                    fire_1(plr.transform.position, 10);
-                }
-                relay += 1;
-                if (relay > 200)
-                {
-                    relay = 0;
-                }
-           
+            myTime = myTime + Time.deltaTime;
+            if (Input.GetButton("Fire1") && myTime > nextFire)
+            {
+
+                    nextFire = myTime + fireDelta;
+                    fire_1(plr.transform.position,20);
+                    nextFire = nextFire - myTime;
+                    myTime = 0.0F;
+                
+            }
         }
         if(dest == true)
         {

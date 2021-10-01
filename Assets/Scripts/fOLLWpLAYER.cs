@@ -46,5 +46,11 @@ public class fOLLWpLAYER : MonoBehaviour
             }
         }
         Destroy(gameObject);
+        if(collision.gameObject.tag =="Bullet")
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+
+        }
     }
 }

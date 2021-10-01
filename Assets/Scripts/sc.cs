@@ -23,7 +23,6 @@ public class sc : MonoBehaviour
     public GameObject Tower6;
     public GameObject Tower7;
     public GameObject Tower8;
-    private int w;
     public int phase = 1;
     bool towersmove = false;
     string stg;
@@ -40,6 +39,7 @@ public class sc : MonoBehaviour
     void Update()
     {
         Health = gameObject.GetComponent<HealthScript>().Health;
+
         if(Health <=0)
         {
             Destroy(gameObject);
@@ -50,9 +50,10 @@ public class sc : MonoBehaviour
             Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
             Vector2 direction = target - myPos;
             direction.Normalize();
-            if (w >= 500)
-            {
+ 
                 gameObject.GetComponent<HealthScript>().invun = false;
+
+
                 Tower1.GetComponent<Fire>().ON = true;
                 Tower2.GetComponent<Fire>().ON = true;
                 Tower3.GetComponent<Fire>().ON = true;
@@ -71,7 +72,7 @@ public class sc : MonoBehaviour
                 }
                 if (cont < 100)
                 {
-                    fire_2(Plr.transform.position, 50,100);
+                    fire_2(Plr.transform.position, 50, 100);
                 }
                 else if (cont >= 100)
                 {
@@ -82,7 +83,7 @@ public class sc : MonoBehaviour
                         fire_1(Tower2.transform.position, 100);
                         fire_1(Tower3.transform.position, 100);
                         fire_1(Tower4.transform.position, 100);
-                        fire_2(Plr.transform.position, 50,500);
+                        fire_2(Plr.transform.position, 50, 500);
 
 
                     }
@@ -102,20 +103,16 @@ public class sc : MonoBehaviour
                         towersmove = !towersmove;
                     }
 
-                }
                 cont += 1;
-            }
-            if (w < 500)
-            {
-                w += 1;
+
             }
         }
-        else if(phase == 2)
+        else if (phase == 2)
         {
             gameObject.transform.position = Tower1.transform.position;
 
-            if (Health<=800)
-           {
+            if (Health <= 800)
+            {
                 phase = 3;
                 Tower1.GetComponent<SpriteRenderer>().sortingOrder = 0;
                 Tower1.GetComponent<Fire>().ON = false;
@@ -123,7 +120,7 @@ public class sc : MonoBehaviour
                 cont = 0;
             }
             phase2firecrap();
-            
+
 
         }
         else if (phase == 3)
@@ -140,7 +137,7 @@ public class sc : MonoBehaviour
             gameObject.transform.position = Tower2.transform.position;
 
         }
-        else if(phase ==4)
+        else if (phase == 4)
         {
             if (Health <= 600)
             {
@@ -153,7 +150,7 @@ public class sc : MonoBehaviour
             gameObject.transform.position = Tower3.transform.position;
 
         }
-        else if(phase == 5)
+        else if (phase == 5)
         {
             if (Health <= 500)
             {
@@ -221,7 +218,7 @@ public class sc : MonoBehaviour
         }
         else if (phase == 10)
         {
-            if(cont<=100)
+            if (cont <= 100)
             {
                 Vector2 target = Tower3.transform.position;
                 Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
@@ -300,6 +297,7 @@ public class sc : MonoBehaviour
             cont += 1;
             fire_2(Plr.transform.position, 150, 10.0f);
         }
+   
 
     }
   

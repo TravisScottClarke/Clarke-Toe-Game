@@ -14,6 +14,7 @@ public class Connerscript : MonoBehaviour
     public GameObject duck4;
     public GameObject duck5;
     public GameObject duck6;
+    public GameObject clarke;
     public Sprite sp1;
     public Sprite sp2;
     private float time = 0.0f;
@@ -23,14 +24,13 @@ public class Connerscript : MonoBehaviour
     public Vector2 startpoint;
     private float Health;
     private float MaxHealth;
-    // Start is called before the first frame update
+
     void Start()
     {
         MaxHealth = gameObject.GetComponent<HealthScript>().maxhealth;
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         gameObject.GetComponent<HealthScript>().invun = invuln;
@@ -39,6 +39,12 @@ public class Connerscript : MonoBehaviour
 		{
             Destroy(gameObject);
 		}
+        if(Health<=0)
+        {
+            plr.transform.position = clarke.transform.position;
+            clarke.GetComponent<sc>().phase = 1;
+            Destroy(gameObject);
+        }
         if (phase == 1)
         {
             time += Time.deltaTime;
@@ -227,6 +233,8 @@ public class Connerscript : MonoBehaviour
                 startpoint = gameObject.transform.position;
                 fire_tent(30, Random.Range(1, 100));
             }
+            fire_1(plr.transform.position, 20);
+            fire_rnd(360);
         }
 
     }
@@ -312,6 +320,7 @@ public class Connerscript : MonoBehaviour
             }
 
         }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {

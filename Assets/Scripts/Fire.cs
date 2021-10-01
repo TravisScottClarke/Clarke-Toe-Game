@@ -7,7 +7,6 @@ public class Fire : MonoBehaviour
     public GameObject proj;
     public GameObject plr;
     public bool dest = false;
-    private int relay = 0;
     public bool ON;
     public float fireDelta = 0.1F;
     private float nextFire = 0.5F;

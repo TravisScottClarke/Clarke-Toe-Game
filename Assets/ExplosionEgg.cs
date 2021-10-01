@@ -40,7 +40,6 @@ public class ExplosionEgg : MonoBehaviour
         time2 += Time.deltaTime;
         if (time2 >= interpolationPeriod2)
         {
-            float scaleup = 0.05f;
             if (nu == 1)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = ex1;

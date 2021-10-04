@@ -35,13 +35,9 @@ public class Connerscript : MonoBehaviour
     {
         gameObject.GetComponent<HealthScript>().invun = invuln;
         Health = gameObject.GetComponent<HealthScript>().Health;
-        if(Health <= 0)
-		{
-            Destroy(gameObject);
-		}
         if(Health<=0)
         {
-            plr.transform.position = clarke.transform.position;
+            plr.transform.position = clarke.transform.position + new Vector3(0,-50,0);
             clarke.GetComponent<sc>().phase = 1;
             Destroy(gameObject);
         }

@@ -157,7 +157,6 @@ public class DUckFightingScript : MonoBehaviour
         direction.Normalize();
         Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * 45);
         GameObject projectile = (GameObject)Instantiate(proje, myPos, rotation);
-        projectile.GetComponent<ExplosionEgg>().act = true;
         projectile.GetComponent<hit3>().dmg = dmg;
         projectile.GetComponent<Rigidbody2D>().velocity = direction * speed;
         Destroy(projectile, durration);

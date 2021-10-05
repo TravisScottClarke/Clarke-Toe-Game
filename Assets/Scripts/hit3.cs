@@ -5,6 +5,8 @@ using UnityEngine;
 public class hit3 : MonoBehaviour
 {
     public int dmg;
+    private bool alreadyhit = false;
+    public bool pierce = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +23,16 @@ public class hit3 : MonoBehaviour
         {
             if (collision.GetComponent<HealthScript>().invun == false)
             {
-                collision.GetComponent<HealthScript>().Health -= dmg;
+                    if (alreadyhit == false)
+                    {
+                        collision.GetComponent<HealthScript>().Health -= dmg;
+                        alreadyhit = true;
+                    }
             }
         }
-        Destroy(gameObject);
+        if (pierce == false)
+        {
+            Destroy(gameObject);
+        }
     }
 }

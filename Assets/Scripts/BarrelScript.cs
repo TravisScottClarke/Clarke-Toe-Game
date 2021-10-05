@@ -26,7 +26,7 @@ public class BarrelScript : MonoBehaviour
             if (time >= interpolationPeriod)
             {
                 time = 0.0f;
-                fire_tent2(10, 5);
+                fire_tent2(10, Random.Range(1,15));
                 Destroy(gameObject);
             }
         }

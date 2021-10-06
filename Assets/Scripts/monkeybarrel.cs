@@ -10,6 +10,7 @@ public class monkeybarrel : MonoBehaviour
     public float interpolationPeriod = 4f;
     public bool acti;
     public GameObject plr;
+
     // Start is called before the first frame update
     void Start()
     {

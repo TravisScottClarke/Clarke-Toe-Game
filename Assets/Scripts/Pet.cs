@@ -10,7 +10,8 @@ public class Pet : MonoBehaviour
     public GameObject proj;
     private float time = 0.0f;
     public float interpolationPeriod = 3.0f;
-
+    public AudioSource AdSo;
+    public AudioClip adcl;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class Pet : MonoBehaviour
         {
             time = 0.0f;
             TakeShit();
+            AdSo.PlayOneShot(adcl,5f);
         }
     }
 

@@ -16,6 +16,9 @@ public class TylerScript : MonoBehaviour
     public bool invuln = false;
     private float Health;
     private float MaxHealth;
+    public AudioSource AdSo;
+    public AudioClip adcl;
+    public AudioClip adcl2;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +59,8 @@ public class TylerScript : MonoBehaviour
             {
                 time = 0.0f;
                 fire_tent2(20, Random.Range(5, 10), monkbarrel);
+                AdSo.PlayOneShot(adcl2, 20f);
+
             }
         }
         if (phase == 3)
@@ -84,6 +89,8 @@ public class TylerScript : MonoBehaviour
         GameObject projectile = (GameObject)Instantiate(Barrel, myPos, rotation);
         projectile.GetComponent<Rigidbody2D>().velocity = direction * speed;
         projectile.GetComponent<BarrelScript>().acti = true;
+        AdSo.PlayOneShot(adcl, 10f);
+
     }
     void fire_tent2(int speed, int numofprojs, GameObject prj)
     {

@@ -10,6 +10,8 @@ public class Shootingscript : MonoBehaviour
     public float interpolationPeriod = 0.2f;
     private bool canshoot = true;
     public GameObject HoldingPoint;
+    public AudioSource AdSo;
+    public AudioClip adcl;
     void Start()
     {
         
@@ -27,6 +29,7 @@ public class Shootingscript : MonoBehaviour
                 if (canshoot == true)
                 {
                     fire_rnd(70f, 2f, 10);
+                    AdSo.PlayOneShot(adcl,100f);
                 }
             }
         }

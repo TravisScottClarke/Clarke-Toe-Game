@@ -12,6 +12,11 @@ public class Shootingscript : MonoBehaviour
     public GameObject HoldingPoint;
     public AudioSource AdSo;
     public AudioClip adcl;
+    public float vol;
+    public GameObject shield;
+    private bool shcd = true;
+    private float shieldtime = 0.0f;
+    public float shieldperiod = 5f;
     void Start()
     {
         
@@ -29,21 +34,24 @@ public class Shootingscript : MonoBehaviour
                 if (canshoot == true)
                 {
                     fire_rnd(70f, 2f, 10);
-                    AdSo.PlayOneShot(adcl,100f);
+                    AdSo.PlayOneShot(adcl,vol);
                 }
             }
         }
 
         if (Input.GetButton("Fire2"))
         {
-            canshoot = false;
-            HoldingPoint.transform.position = gameObject.transform.position;
-            Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-            Vector3 difference = target - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-            float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-            HoldingPoint.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ - 90f);
+            if (shcd == true)
+            {
+                canshoot = false;
+                HoldingPoint.transform.position = gameObject.transform.position;
+                Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+                Vector3 difference = target - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+                float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+                HoldingPoint.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ - 90f);
 
-            Vector2 startpoint = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+                Vector2 startpoint = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+            }
         }
         if (!Input.GetButton("Fire2"))
         {
@@ -51,9 +59,25 @@ public class Shootingscript : MonoBehaviour
             HoldingPoint.transform.position = new Vector2(10000,10000);
         }
 
+        if(shcd==false)
+        {
+            shieldtime += Time.deltaTime;
+            if (shieldtime >= shieldperiod)
+            {
+                shieldtime = 0.0f;
+                shcd = true;
+                shield.GetComponent<HealthScript>().Health = shield.GetComponent<HealthScript>().maxhealth;
+            }
+        }
+        if (shcd == true)
+        {
+            if (shield.GetComponent<HealthScript>().Health <= 0)
+            {
+                shcd = false;
+                HoldingPoint.transform.position = new Vector2(10000, 10000);
 
-
-
+            }
+        }
 
     }
         void fire(float speed, float durration)

@@ -19,6 +19,8 @@ public class TylerScript : MonoBehaviour
     public AudioSource AdSo;
     public AudioClip adcl;
     public AudioClip adcl2;
+    public float vol;
+    public GameObject deathsprites;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,12 @@ public class TylerScript : MonoBehaviour
     {
         Health = gameObject.GetComponent<HealthScript>().Health;
         invuln = gameObject.GetComponent<HealthScript>().invun;
+        if(Health<=0)
+        {
+            GameObject explosion = (GameObject)Instantiate(deathsprites, gameObject.transform.position, gameObject.transform.rotation);
+            explosion.GetComponent<ExplosionDeathScript>().act = true;
+            Destroy(gameObject);
+        }
         if(phase == 1)
         {
             if(Health <= MaxHealth-200)
@@ -59,7 +67,7 @@ public class TylerScript : MonoBehaviour
             {
                 time = 0.0f;
                 fire_tent2(20, Random.Range(5, 10), monkbarrel);
-                AdSo.PlayOneShot(adcl2, 20f);
+                AdSo.PlayOneShot(adcl2, vol);
 
             }
         }
@@ -89,7 +97,7 @@ public class TylerScript : MonoBehaviour
         GameObject projectile = (GameObject)Instantiate(Barrel, myPos, rotation);
         projectile.GetComponent<Rigidbody2D>().velocity = direction * speed;
         projectile.GetComponent<BarrelScript>().acti = true;
-        AdSo.PlayOneShot(adcl, 10f);
+        AdSo.PlayOneShot(adcl, vol);
 
     }
     void fire_tent2(int speed, int numofprojs, GameObject prj)

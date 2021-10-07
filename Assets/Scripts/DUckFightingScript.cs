@@ -16,6 +16,8 @@ public class DUckFightingScript : MonoBehaviour
     public GameObject connere;
     public Sprite sp11;
     private Vector2 startpoint;
+    public GameObject deathsprites;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,8 @@ public class DUckFightingScript : MonoBehaviour
         gameObject.GetComponent<HealthScript>().invun = !activate;
         if (Health <= 0)
         {
+            GameObject explosion = (GameObject)Instantiate(deathsprites, gameObject.transform.position, gameObject.transform.rotation);
+            explosion.GetComponent<ExplosionDeathScript>().act = true;
             connere.GetComponent<Connerscript>().invuln = false;
             connere.GetComponent<Connerscript>().phase += 1;
             connere.GetComponent<SpriteRenderer>().sprite = sp11;

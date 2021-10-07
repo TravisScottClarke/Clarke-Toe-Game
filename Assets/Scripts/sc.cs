@@ -28,6 +28,7 @@ public class sc : MonoBehaviour
     string stg;
     public int cont;
     public GameObject doggo;
+    public GameObject deathsprites;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,8 @@ public class sc : MonoBehaviour
 
         if(Health <=0)
         {
+            GameObject explosion = (GameObject)Instantiate(deathsprites, gameObject.transform.position, gameObject.transform.rotation);
+            explosion.GetComponent<ExplosionDeathScript>().act = true;
             Destroy(gameObject);
         }
         if (phase == 1)

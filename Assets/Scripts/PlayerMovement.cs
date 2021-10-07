@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
         Health = gameObject.GetComponent<HealthScript>().Health;
         if (Health <= 0)
         {
-            deathscene.transform.position = cam.transform.position;
-            this.transform.position = new Vector2(100000, 100000);
+            deathscene.transform.position = deathscene.transform.parent.position;
+
         }
         Move();
         Move2();

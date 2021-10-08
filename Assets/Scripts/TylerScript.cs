@@ -21,6 +21,10 @@ public class TylerScript : MonoBehaviour
     public AudioClip adcl2;
     public float vol;
     public GameObject deathsprites;
+    public GameObject tower1;
+    public GameObject tower2;
+    public GameObject tower3;
+    public GameObject tower4;
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +81,10 @@ public class TylerScript : MonoBehaviour
             {
                 phase = 4;
                 interpolationPeriod = .5f;
+                tower1.GetComponent<monkeybanascript>().ON = false;
+                tower2.GetComponent<monkeybanascript>().ON = false;
+                tower3.GetComponent<monkeybanascript>().ON = false;
+                tower4.GetComponent<monkeybanascript>().ON = false;
             }
             startpoint = gameObject.transform.position;
             time += Time.deltaTime;
@@ -85,6 +93,13 @@ public class TylerScript : MonoBehaviour
                 time = 0.0f;
                 fire_tent2(60, Random.Range(10, 20),Barrel);
             }
+        }
+        if (phase == 4)
+        {
+            fire_1(tower1.transform.position, 50);
+            fire_1(tower2.transform.position, 50);
+            fire_1(tower3.transform.position, 50);
+            fire_1(tower4.transform.position, 50);
         }
     }
     void fire_1(Vector2 pos, int speed)

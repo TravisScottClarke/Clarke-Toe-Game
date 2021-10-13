@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Starting Screen.unity
+    guid: 82d86c1709e38844293df795be5a1a34
+  - enabled: 1
+    path: Assets/Scenes/toes movement.unity
+    guid: ab63e1163d0ed75408ec88a5a041b73a
   m_configObjects: {}

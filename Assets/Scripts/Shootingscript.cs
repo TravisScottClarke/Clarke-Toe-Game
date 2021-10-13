@@ -16,7 +16,7 @@ public class Shootingscript : MonoBehaviour
     public GameObject shield;
     private bool shcd = true;
     private float shieldtime = 0.0f;
-    public float shieldperiod = 5f;
+    public float shieldperiod = .1f;
     void Start()
     {
         
@@ -65,8 +65,11 @@ public class Shootingscript : MonoBehaviour
             if (shieldtime >= shieldperiod)
             {
                 shieldtime = 0.0f;
-                shcd = true;
-                shield.GetComponent<HealthScript>().Health = shield.GetComponent<HealthScript>().maxhealth;
+                shield.GetComponent<HealthScript>().Health += 2;
+                if (shield.GetComponent<HealthScript>().Health >= shield.GetComponent<HealthScript>().maxhealth)
+                {
+                    shcd = true;
+                }
             }
         }
         if (shcd == true)

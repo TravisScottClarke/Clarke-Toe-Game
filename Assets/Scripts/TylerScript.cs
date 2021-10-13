@@ -25,6 +25,7 @@ public class TylerScript : MonoBehaviour
     public GameObject tower2;
     public GameObject tower3;
     public GameObject tower4;
+    public GameObject waterwall;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,12 +36,26 @@ public class TylerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (phase == 0)
+        {
+            float mag = Vector2.Distance(plr.transform.position, transform.position);
+            if (mag <= 50)
+            {
+                gameObject.GetComponent<HealthScript>().invun = false;
+                phase = 1;
+                waterwall.transform.position = new Vector2(-495.39f, -1728.02f);
+            }
+        }
         Health = gameObject.GetComponent<HealthScript>().Health;
         invuln = gameObject.GetComponent<HealthScript>().invun;
         if(Health<=0)
         {
             GameObject explosion = (GameObject)Instantiate(deathsprites, gameObject.transform.position, gameObject.transform.rotation);
             explosion.GetComponent<ExplosionDeathScript>().act = true;
+            Destroy(tower1);
+            Destroy(tower2);
+            Destroy(tower3);
+            Destroy(tower4);
             Destroy(gameObject);
         }
         if(phase == 1)
@@ -80,7 +95,7 @@ public class TylerScript : MonoBehaviour
             if (Health <= MaxHealth - 600)
             {
                 phase = 4;
-                interpolationPeriod = .5f;
+                interpolationPeriod = 1f;
                 tower1.GetComponent<monkeybanascript>().ON = false;
                 tower2.GetComponent<monkeybanascript>().ON = false;
                 tower3.GetComponent<monkeybanascript>().ON = false;
@@ -96,10 +111,16 @@ public class TylerScript : MonoBehaviour
         }
         if (phase == 4)
         {
-            fire_1(tower1.transform.position, 50);
-            fire_1(tower2.transform.position, 50);
-            fire_1(tower3.transform.position, 50);
-            fire_1(tower4.transform.position, 50);
+            time += Time.deltaTime;
+            if (time >= interpolationPeriod)
+            {
+                time = 0.0f;
+                fire_1(tower1.transform.position, 50);
+                fire_1(tower2.transform.position, 50);
+                fire_1(tower3.transform.position, 50);
+                fire_1(tower4.transform.position, 50);
+            }
+
         }
     }
     void fire_1(Vector2 pos, int speed)

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public int speed;
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
         if (Health <= 0)
         {
             deathscene.transform.position = deathscene.transform.parent.position;
-
+            SceneManager.LoadScene("Starting Screen", LoadSceneMode.Single);
         }
         Move();
         Move2();

@@ -11,17 +11,18 @@ public class HealthScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        healthbar.setHealth(Health, maxhealth);
-
+        if (healthbar)
+        {
+            healthbar.setHealth(Health, maxhealth);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Health <= 0)
+        if(healthbar)
         {
-
+            healthbar.setHealth(Health, maxhealth);
         }
-        healthbar.setHealth(Health, maxhealth);
     }
 }

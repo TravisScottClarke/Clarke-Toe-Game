@@ -15,8 +15,9 @@ public class Shootingscript : MonoBehaviour
     public float vol;
     public GameObject shield;
     private bool shcd = true;
-    private float shieldtime = 0.0f;
     public float shieldperiod = .1f;
+    private bool shieldactive = false;
+    public float shieldregenrate = 1.5f;
     void Start()
     {
         
@@ -38,11 +39,11 @@ public class Shootingscript : MonoBehaviour
                 }
             }
         }
-
-        if (Input.GetButton("Fire2"))
+        if (shcd == false)
         {
-            if (shcd == true)
+            if (Input.GetButton("Fire2"))
             {
+
                 canshoot = false;
                 HoldingPoint.transform.position = gameObject.transform.position;
                 Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
@@ -51,36 +52,43 @@ public class Shootingscript : MonoBehaviour
                 HoldingPoint.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ - 90f);
 
                 Vector2 startpoint = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+                shieldactive = true;
             }
-        }
-        if (!Input.GetButton("Fire2"))
-        {
-            canshoot = true;
-            HoldingPoint.transform.position = new Vector2(10000,10000);
+            
         }
 
-        if(shcd==false)
-        {
-            shieldtime += Time.deltaTime;
-            if (shieldtime >= shieldperiod)
+            if (!Input.GetButton("Fire2"))
             {
-                shieldtime = 0.0f;
-                shield.GetComponent<HealthScript>().Health += 2;
-                if (shield.GetComponent<HealthScript>().Health >= shield.GetComponent<HealthScript>().maxhealth)
-                {
-                    shcd = true;
-                }
-            }
-        }
-        if (shcd == true)
-        {
-            if (shield.GetComponent<HealthScript>().Health <= 0)
-            {
-                shcd = false;
+                canshoot = true;
                 HoldingPoint.transform.position = new Vector2(10000, 10000);
-
+                shieldactive = false;
             }
+      
+        if(shield.GetComponent<HealthScript>().Health <= 0)
+        {
+            shield.GetComponent<HealthScript>().Health = 0;
+            shcd = true;
+            HoldingPoint.transform.position = new Vector2(1000000,1000000);
         }
+
+        if (shieldactive == false)
+        {
+            if ((shield.GetComponent<HealthScript>().maxhealth - shield.GetComponent<HealthScript>().Health) >= shieldregenrate)
+            {
+                shield.GetComponent<HealthScript>().Health += shieldregenrate;
+            }
+            if ((shield.GetComponent<HealthScript>().maxhealth - shield.GetComponent<HealthScript>().Health) <= shieldregenrate)
+            {
+                shield.GetComponent<HealthScript>().Health = shield.GetComponent<HealthScript>().maxhealth;
+            }
+            shcd = false;
+
+        }
+
+
+
+
+
 
     }
         void fire(float speed, float durration)

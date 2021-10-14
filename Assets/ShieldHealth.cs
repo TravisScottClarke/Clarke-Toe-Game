@@ -9,6 +9,7 @@ public class ShieldHealth : MonoBehaviour
     public GameObject shield;
     float health, maxhealth;
     float lerpspeed;
+    public bool shieldbar;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,7 @@ public class ShieldHealth : MonoBehaviour
         healthtext.text = (health/maxhealth)*100 + "%";
         healthbarfiller();
         colorchange();
-        lerpspeed = 3f * Time.deltaTime;
+        lerpspeed = 2f * Time.deltaTime;
     }
     void healthbarfiller()
     {
@@ -32,7 +33,15 @@ public class ShieldHealth : MonoBehaviour
     }
     void colorchange()
     {
-        Color healthcolor = Color.Lerp(Color.red, Color.green, (health / maxhealth));
-        healthbar.color = healthcolor;
+        if (shieldbar == true)
+        {
+            Color healthcolor = Color.Lerp(Color.red, Color.blue, (health / maxhealth));
+            healthbar.color = healthcolor;
+        }
+        if (shieldbar == false)
+        {
+            Color healthcolor = Color.Lerp(Color.red, Color.green, (health / maxhealth));
+            healthbar.color = healthcolor;
+        }
     }
 }

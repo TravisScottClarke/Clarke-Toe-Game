@@ -26,6 +26,8 @@ public class TylerScript : MonoBehaviour
     public GameObject tower3;
     public GameObject tower4;
     public GameObject waterwall;
+    public GameObject waterwall2;
+    public GameObject connerwall1;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +58,8 @@ public class TylerScript : MonoBehaviour
             Destroy(tower2);
             Destroy(tower3);
             Destroy(tower4);
+            waterwall2.transform.position += new Vector3(0, 150, 0);
+            connerwall1.transform.position += new Vector3(0, 150, 0);
             Destroy(gameObject);
         }
         if(phase == 1)

@@ -17,6 +17,7 @@ public class PlayButton : MonoBehaviour
     }
     public void playgame()
     {
-        SceneManager.LoadScene(sceneName: "toes movement");
+        SceneManager.LoadScene("toes movement", LoadSceneMode.Single);
+
     }
 }

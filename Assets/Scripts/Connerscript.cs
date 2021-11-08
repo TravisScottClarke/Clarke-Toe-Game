@@ -8,13 +8,9 @@ public class Connerscript : MonoBehaviour
     public GameObject projpurple;
     public GameObject projbrown;
     public GameObject plr;
-    public GameObject duck1;
-    public GameObject duck2;
-    public GameObject duck3;
-    public GameObject duck4;
-    public GameObject duck5;
-    public GameObject duck6;
+    public GameObject duck1, duck2, duck3, duck4, duck5, duck6;
     public GameObject clarke;
+    public GameObject wall1, wall2, wall3;
     public Sprite sp1;
     public Sprite sp2;
     private float time = 0.0f;
@@ -36,11 +32,22 @@ public class Connerscript : MonoBehaviour
     {
         gameObject.GetComponent<HealthScript>().invun = invuln;
         Health = gameObject.GetComponent<HealthScript>().Health;
-        if(Health<=0)
+        if (phase == 0)
+        {
+            float mag = Vector2.Distance(plr.transform.position, transform.position);
+            if (mag <= 50)
+            {
+                gameObject.GetComponent<HealthScript>().invun = false;
+                phase = 1;
+                wall1.transform.position += new Vector3(150, 0, 0);
+                wall2.transform.position += new Vector3(150, 0, 0);
+            }
+        }
+        if (Health<=0)
         {
             GameObject explosion = (GameObject)Instantiate(deathsprites, gameObject.transform.position, gameObject.transform.rotation);
             explosion.GetComponent<ExplosionDeathScript>().act = true;
-            clarke.GetComponent<sc>().phase = 1;
+            wall3.transform.position += new Vector3(-100, 0, 0);
             Destroy(gameObject);
         }
         if (phase == 1)

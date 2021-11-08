@@ -5,19 +5,40 @@ using UnityEngine.UI;
 
 public class HealthBarBehavior : MonoBehaviour
 {
-    public Slider slider;
     public Vector3 offset;
+    public Image healthbar;
+    float health, maxhealth;
+    float lerpspeed;
+    public bool shieldbar;
     // Start is called before the first frame update
- 
-    public void setHealth(float H, float MH)
-	{
-        slider.gameObject.SetActive(H < MH);
-        slider.value = H;
-        slider.maxValue = MH;
-	}
+
+    void Start()
+    {
+        health = gameObject.GetComponentInParent<HealthScript>().Health;
+        maxhealth = gameObject.GetComponentInParent<HealthScript>().maxhealth;
+    }
     // Update is called once per frame
     void Update()
     {
-        slider.transform.position = Camera.main.WorldToScreenPoint(transform.parent.position + offset); 
+        healthbarfiller();
+        colorchange();
+        lerpspeed = 2f * Time.deltaTime;
+    }
+    void healthbarfiller()
+    {
+        healthbar.fillAmount = Mathf.Lerp(healthbar.fillAmount, health / maxhealth, lerpspeed);
+    }
+    void colorchange()
+    {
+        if (shieldbar == true)
+        {
+            Color healthcolor = Color.Lerp(Color.red, Color.blue, (health / maxhealth));
+            healthbar.color = healthcolor;
+        }
+        if (shieldbar == false)
+        {
+            Color healthcolor = Color.Lerp(Color.red, Color.green, (health / maxhealth));
+            healthbar.color = healthcolor;
+        }
     }
 }

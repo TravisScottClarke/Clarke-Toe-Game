@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class sc : MonoBehaviour
 {
     public GameObject difselc;
@@ -23,12 +23,15 @@ public class sc : MonoBehaviour
     public GameObject Tower6;
     public GameObject Tower7;
     public GameObject Tower8;
+    public GameObject wall;
     public int phase = 1;
     bool towersmove = false;
     string stg;
     public int cont;
     public GameObject doggo;
     public GameObject deathsprites;
+    public GameObject timmmer;
+    public GameObject finaltimer;
 
     // Start is called before the first frame update
     void Start()
@@ -43,9 +46,21 @@ public class sc : MonoBehaviour
 
         if(Health <=0)
         {
+            finaltimer.GetComponent<Text>().text = timmmer.GetComponent<Text>().text;
+            Destroy(timmmer);
             GameObject explosion = (GameObject)Instantiate(deathsprites, gameObject.transform.position, gameObject.transform.rotation);
             explosion.GetComponent<ExplosionDeathScript>().act = true;
             Destroy(gameObject);
+        }
+        if (phase == 0)
+        {
+            float mag = Vector2.Distance(Plr.transform.position, transform.position);
+            if (mag <= 50)
+            {
+                gameObject.GetComponent<HealthScript>().invun = false;
+                phase = 1;
+                wall.transform.position += new Vector3(100, 0, 0);
+            }
         }
         if (phase == 1)
         {

@@ -13,7 +13,6 @@ public class HealthScript : MonoBehaviour
     {
         if (healthbar)
         {
-            healthbar.setHealth(Health, maxhealth);
         }
     }
 
@@ -22,7 +21,7 @@ public class HealthScript : MonoBehaviour
     {
         if(healthbar)
         {
-            healthbar.setHealth(Health, maxhealth);
+           
         }
     }
 }

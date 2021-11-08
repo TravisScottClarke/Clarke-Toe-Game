@@ -58,8 +58,8 @@ public class TylerScript : MonoBehaviour
             Destroy(tower2);
             Destroy(tower3);
             Destroy(tower4);
-            waterwall2.transform.position += new Vector3(0, 150, 0);
-            connerwall1.transform.position += new Vector3(0, 150, 0);
+            waterwall2.transform.position += new Vector3(-150, 0, 0);
+            connerwall1.transform.position += new Vector3(-150, 0, 0);
             Destroy(gameObject);
         }
         if(phase == 1)

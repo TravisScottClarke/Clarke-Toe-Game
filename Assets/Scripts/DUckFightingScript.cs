@@ -32,8 +32,6 @@ public class DUckFightingScript : MonoBehaviour
         gameObject.GetComponent<HealthScript>().invun = !activate;
         if (Health <= 0)
         {
-            GameObject explosion = (GameObject)Instantiate(deathsprites, gameObject.transform.position, gameObject.transform.rotation);
-            explosion.GetComponent<ExplosionDeathScript>().act = true;
             connere.GetComponent<Connerscript>().invuln = false;
             connere.GetComponent<Connerscript>().phase += 1;
             connere.GetComponent<SpriteRenderer>().sprite = sp11;

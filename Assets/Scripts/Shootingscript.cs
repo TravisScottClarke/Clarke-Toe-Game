@@ -34,7 +34,7 @@ public class Shootingscript : MonoBehaviour
                 time = 0.0f;
                 if (canshoot == true)
                 {
-                    fire_rnd(70f, 2f, 10);
+                    fire(70f, 2f);
                     AdSo.PlayOneShot(adcl,vol);
                 }
             }
@@ -108,21 +108,5 @@ public class Shootingscript : MonoBehaviour
         Destroy(projectile, 2.0f);
  
     }
-    void fire_rnd(float speed, float durration,float range)
-    {
-        Vector2 rnd = new Vector2(Random.Range(-range, range), Random.Range(-range, range));
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        difference.Normalize();
-
-        float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-
-        Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y)+rnd);
-        Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
-        Vector2 direction = target - myPos;
-        direction.Normalize();
-        GameObject projectile = (GameObject)Instantiate(proj, myPos, Quaternion.Euler(0f, 0f, rotZ));
-        projectile.GetComponent<Rigidbody2D>().velocity = direction * 50;
-        projectile.AddComponent<BoxCollider2D>();
-        Destroy(projectile, 2.0f);
-    }
+   
 }

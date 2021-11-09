@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class sc : MonoBehaviour
 {
     public GameObject difselc;
@@ -50,6 +52,7 @@ public class sc : MonoBehaviour
             Destroy(timmmer);
             GameObject explosion = (GameObject)Instantiate(deathsprites, gameObject.transform.position, gameObject.transform.rotation);
             explosion.GetComponent<ExplosionDeathScript>().act = true;
+            SceneManager.LoadScene("Starting Screen", LoadSceneMode.Single);
             Destroy(gameObject);
         }
         if (phase == 0)

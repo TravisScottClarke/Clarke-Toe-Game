@@ -1708,7 +1708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proj: {fileID: 2069143975}
-  interpolationPeriod: 0
   HoldingPoint: {fileID: 1420995807}
   AdSo: {fileID: 302835328}
   adcl: {fileID: 8300000, guid: 4bcc55ece40f3af4493810ab4cf6c098, type: 3}
@@ -6373,6 +6372,7 @@ MonoBehaviour:
   invuln: 0
   startpoint: {x: 0, y: 0}
   deathsprites: {fileID: 1214198866}
+  shieldheolth: {fileID: 1349454211}
 --- !u!114 &1152566801
 MonoBehaviour:
   m_ObjectHideFlags: 0

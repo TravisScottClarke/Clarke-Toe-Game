@@ -21,7 +21,7 @@ public class Connerscript : MonoBehaviour
     private float Health;
     private float MaxHealth;
     public GameObject deathsprites;
-
+    public GameObject shieldheolth;
     void Start()
     {
         MaxHealth = gameObject.GetComponent<HealthScript>().maxhealth;
@@ -48,6 +48,7 @@ public class Connerscript : MonoBehaviour
             GameObject explosion = (GameObject)Instantiate(deathsprites, gameObject.transform.position, gameObject.transform.rotation);
             explosion.GetComponent<ExplosionDeathScript>().act = true;
             wall3.transform.position += new Vector3(-100, 0, 0);
+            shieldheolth.GetComponent<HealthScript>().maxhealth = 1000;
             Destroy(gameObject);
         }
         if (phase == 1)

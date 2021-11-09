@@ -7,7 +7,7 @@ public class Shootingscript : MonoBehaviour
     // Start is called before the first frame update
     public GameObject proj;
     private float time = 0.0f;
-    public float interpolationPeriod = 0.3f;
+    float interpolationPeriod = 0.15f;
     private bool canshoot = true;
     public GameObject HoldingPoint;
     public AudioSource AdSo;
